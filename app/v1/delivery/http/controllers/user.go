@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"user_api/app/errors"
 	"user_api/app/v1/contract"
 	"user_api/utils/logger"
 
@@ -22,11 +23,7 @@ func (u *UserController) FindAll(c *fiber.Ctx) error {
 	users, err := u.UserUsecase.FindAll(c.Context())
 	if err != nil {
 		logger.GetLogger(c.Context()).Errorf("failed to find all users: %v", err)
-		return c.Status(http.StatusInternalServerError).JSON(contract.Response{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "failed to get all users",
-			Data:       nil,
-		})
+		return errors.RenderErrorResponse(c, err)
 	}
 
 	return c.Status(http.StatusOK).JSON(contract.Response{
@@ -50,11 +47,7 @@ func (u *UserController) FindById(c *fiber.Ctx) error {
 	result, err := u.UserUsecase.FindById(c.Context(), id)
 	if err != nil {
 		logger.GetLogger(c.Context()).Errorf("failed to find user by id: %v", err)
-		return c.Status(http.StatusInternalServerError).JSON(contract.Response{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "failed to get user by id",
-			Data:       nil,
-		})
+		return errors.RenderErrorResponse(c, err)
 	}
 
 	return c.Status(http.StatusOK).JSON(contract.Response{
@@ -78,11 +71,7 @@ func (u *UserController) Save(c *fiber.Ctx) error {
 	result, err := u.UserUsecase.Save(c.Context(), user)
 	if err != nil {
 		logger.GetLogger(c.Context()).Errorf("failed to save user: %v", err)
-		return c.Status(http.StatusInternalServerError).JSON(contract.Response{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "failed to save user",
-			Data:       nil,
-		})
+		return errors.RenderErrorResponse(c, err)
 	}
 
 	return c.Status(http.StatusOK).JSON(contract.Response{
@@ -93,6 +82,15 @@ func (u *UserController) Save(c *fiber.Ctx) error {
 }
 
 func (u *UserController) Update(c *fiber.Ctx) error {
+	id, err := c.ParamsInt("id")
+	if err != nil {
+		logger.GetLogger(c.Context()).Errorf("failed to parse id: %v", err)
+		return c.Status(http.StatusBadRequest).JSON(contract.Response{
+			StatusCode: http.StatusBadRequest,
+			Message:    "failed to parse id",
+			Data:       nil,
+		})
+	}
 	var user contract.User
 	if err := c.BodyParser(&user); err != nil {
 		logger.GetLogger(c.Context()).Errorf("failed to parse user: %v", err)
@@ -103,14 +101,12 @@ func (u *UserController) Update(c *fiber.Ctx) error {
 		})
 	}
 
+	// set id
+	user.ID = id
 	result, err := u.UserUsecase.Update(c.Context(), user)
 	if err != nil {
 		logger.GetLogger(c.Context()).Errorf("failed to update user: %v", err)
-		return c.Status(http.StatusInternalServerError).JSON(contract.Response{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "failed to update user",
-			Data:       nil,
-		})
+		return errors.RenderErrorResponse(c, err)
 	}
 
 	return c.Status(http.StatusOK).JSON(contract.Response{
@@ -134,11 +130,7 @@ func (u *UserController) Delete(c *fiber.Ctx) error {
 	err = u.UserUsecase.Delete(c.Context(), id)
 	if err != nil {
 		logger.GetLogger(c.Context()).Errorf("failed to delete user: %v", err)
-		return c.Status(http.StatusInternalServerError).JSON(contract.Response{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "failed to delete user",
-			Data:       nil,
-		})
+		return errors.RenderErrorResponse(c, err)
 	}
 
 	return c.Status(http.StatusOK).JSON(contract.Response{

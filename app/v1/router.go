@@ -1,8 +1,13 @@
 package v1
 
 import (
+	"net/http"
+	"user_api/app/v1/contract"
 	"user_api/app/v1/delivery/http/controllers"
 
+	appConfig "user_api/config"
+
+	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -19,6 +24,17 @@ func NewRouter(f *fiber.App, deps *Dependencies) {
 	auth := v1.Group("/auth")
 	auth.Post("/login", authControllers.Login)
 	auth.Post("/register", authControllers.Register)
+
+	v1.Use(jwtware.New(jwtware.Config{
+		SigningKey: jwtware.SigningKey{Key: []byte(appConfig.Config().JWTSecret)},
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			return c.Status(http.StatusUnauthorized).JSON(contract.Response{
+				StatusCode: http.StatusUnauthorized,
+				Message:    "unauthorized",
+				Data:       nil,
+			})
+		},
+	}))
 
 	admin := v1.Group("/admin")
 

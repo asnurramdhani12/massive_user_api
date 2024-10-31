@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"user_api/app/errors"
 	"user_api/app/v1/contract"
 	"user_api/utils/logger"
 
@@ -32,11 +33,7 @@ func (u *AuthController) Login(c *fiber.Ctx) error {
 	result, err := u.UserUsecase.Login(c.Context(), user)
 	if err != nil {
 		logger.GetLogger(c.Context()).Errorf("failed to login user: %v", err)
-		return c.Status(http.StatusInternalServerError).JSON(contract.Response{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "failed to login user",
-			Data:       nil,
-		})
+		return errors.RenderErrorResponse(c, err)
 	}
 
 	return c.Status(http.StatusOK).JSON(contract.Response{
@@ -60,11 +57,7 @@ func (u *AuthController) Register(c *fiber.Ctx) error {
 	result, err := u.UserUsecase.Register(c.Context(), user)
 	if err != nil {
 		logger.GetLogger(c.Context()).Errorf("failed to register user: %v", err)
-		return c.Status(http.StatusInternalServerError).JSON(contract.Response{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "failed to register user",
-			Data:       nil,
-		})
+		return errors.RenderErrorResponse(c, err)
 	}
 
 	return c.Status(http.StatusOK).JSON(contract.Response{
