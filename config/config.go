@@ -9,24 +9,34 @@ import (
 	"github.com/spf13/viper"
 )
 
-type Configuration struct {
-	AppName string `mapstructure:"APP_NAME" validate:"required"`
-	Env     string `mapstructure:"ENVIRONMENT" validate:"required"`
-	Host    string `mapstructure:"HOST" validate:"required"`
-	Port    string `mapstructure:"PORT" validate:"required"`
+type (
+	Configuration struct {
+		AppName string `mapstructure:"APP_NAME" validate:"required"`
+		Env     string `mapstructure:"ENVIRONMENT" validate:"required"`
+		Host    string `mapstructure:"HOST" validate:"required"`
+		Port    string `mapstructure:"PORT" validate:"required"`
 
-	JWTSecret string `mapstructure:"JWT_SECRET" validate:"required"`
+		JWTSecret string `mapstructure:"JWT_SECRET" validate:"required"`
 
-	PostgreSql PostgreSql `mapstructure:",squash"`
-}
+		PostgreSql PostgreSql `mapstructure:",squash"`
 
-type PostgreSql struct {
-	Host     string `mapstructure:"POSTGRES_HOST" validate:"required"`
-	Port     string `mapstructure:"POSTGRES_PORT" validate:"required"`
-	Username string `mapstructure:"POSTGRES_USER" validate:"required"`
-	Password string `mapstructure:"POSTGRES_PASSWORD" validate:"required"`
-	Database string `mapstructure:"POSTGRES_DATABASE" validate:"required"`
-}
+		Redis Redis `mapstructure:",squash"`
+	}
+
+	PostgreSql struct {
+		Host     string `mapstructure:"POSTGRES_HOST" validate:"required"`
+		Port     string `mapstructure:"POSTGRES_PORT" validate:"required"`
+		Username string `mapstructure:"POSTGRES_USER" validate:"required"`
+		Password string `mapstructure:"POSTGRES_PASSWORD" validate:"required"`
+		Database string `mapstructure:"POSTGRES_DATABASE" validate:"required"`
+	}
+
+	Redis struct {
+		Host     string `mapstructure:"REDIS_HOST" validate:"required"`
+		Port     string `mapstructure:"REDIS_PORT" validate:"required"`
+		Password string `mapstructure:"REDIS_PASSWORD"`
+	}
+)
 
 func NewConfig(ctx context.Context) (*Configuration, error) {
 	var cfg Configuration

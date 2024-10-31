@@ -35,7 +35,6 @@ func (u *UserUsecaseImpl) Delete(ctx context.Context, id int) error {
 // FindAll implements contract.UserUsecase.
 func (u *UserUsecaseImpl) FindAll(ctx context.Context) ([]contract.User, error) {
 	result, err := u.UserRepo.FindAll(ctx)
-
 	if err != nil {
 		logger.GetLogger(ctx).Errorf("failed to find all users: %v", err)
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -139,6 +138,10 @@ func (u *UserUsecaseImpl) Register(ctx context.Context, user contract.User) (con
 	// Insert User
 	user, err = u.UserRepo.Save(ctx, user)
 	if err != nil {
+		logger.GetLogger(ctx).Errorf("failed to insert user: %v", err)
+		if errors.Is(err, gorm.ErrDuplicatedKey) {
+			return contract.User{}, appErr.ErrConflict
+		}
 		return contract.User{}, errors.New("cannot insert user")
 	}
 

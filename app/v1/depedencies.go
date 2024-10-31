@@ -29,7 +29,13 @@ func NewDependencies(ctx context.Context, cfg *config.Configuration) *Dependenci
 		return nil
 	}
 
-	userRepo := userRepo.NewUserRepository(db)
+	rdb, err := config.NewCache(ctx, *cfg)
+	if err != nil {
+		logger.GetLogger(ctx).Panicf("failed to connect redis: %v", err)
+		return nil
+	}
+
+	userRepo := userRepo.NewUserRepository(db, rdb)
 	userUsecase := userUseCase.NewUserUsecase(userRepo)
 
 	return &Dependencies{

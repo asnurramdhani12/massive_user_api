@@ -2,6 +2,7 @@ package contract
 
 import (
 	"context"
+	"encoding/json"
 
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/go-ozzo/ozzo-validation/v4/is"
@@ -60,4 +61,13 @@ type UserUsecase interface {
 	Delete(ctx context.Context, id int) error
 	Login(ctx context.Context, user User) (Token, error)
 	Register(ctx context.Context, user User) (User, error)
+}
+
+// Marshaller
+func (u User) MarshalBinary() (data []byte, err error) {
+	return json.Marshal(u)
+}
+
+func (u *User) UnmarshalBinary(data []byte) error {
+	return json.Unmarshal(data, u)
 }
