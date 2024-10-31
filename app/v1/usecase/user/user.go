@@ -72,6 +72,9 @@ func (u *UserUsecaseImpl) Login(ctx context.Context, user contract.User) (contra
 	data, err := u.UserRepo.FindByUsername(ctx, user.Username)
 	if err != nil {
 		logger.GetLogger(ctx).Errorf("failed to find user: %v", err)
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return contract.Token{}, appErr.ErrNotFound
+		}
 		return contract.Token{}, err
 	}
 
@@ -116,11 +119,8 @@ func (u *UserUsecaseImpl) Login(ctx context.Context, user contract.User) (contra
 func (u *UserUsecaseImpl) Register(ctx context.Context, user contract.User) (contract.User, error) {
 	//Check Email Exist
 	users, err := u.UserRepo.FindByUsername(ctx, user.Username)
-	if err != nil {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		logger.GetLogger(ctx).Errorf("failed to find user: %v", err)
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return contract.User{}, errors.New("cannot find user")
-		}
 		return contract.User{}, errors.New("cannot find user")
 	}
 
@@ -189,6 +189,8 @@ func (u *UserUsecaseImpl) Update(ctx context.Context, user contract.User) (contr
 		logger.GetLogger(ctx).Errorf("failed to update user: %v", err)
 		if errors.Is(err, gorm.ErrDuplicatedKey) {
 			return contract.User{}, appErr.ErrConflict
+		} else if errors.Is(err, gorm.ErrRecordNotFound) {
+			return contract.User{}, appErr.ErrNotFound
 		}
 		return contract.User{}, err
 	}

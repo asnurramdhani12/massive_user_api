@@ -1,6 +1,11 @@
 package contract
 
-import "context"
+import (
+	"context"
+
+	validation "github.com/go-ozzo/ozzo-validation/v4"
+	"github.com/go-ozzo/ozzo-validation/v4/is"
+)
 
 type User struct {
 	ID       int    `json:"id" gorm:"primary_key"`
@@ -9,10 +14,35 @@ type User struct {
 	Password string `json:"password,omitempty" gorm:"not null"`
 }
 
+// GORM
 func (u User) TableName() string {
 	return "users"
 }
 
+// VALIDATION
+func (u User) ValidateInsertOrRegister() error {
+	return validation.ValidateStruct(&u,
+		validation.Field(&u.Username, validation.Required),
+		validation.Field(&u.Email, validation.Required, is.Email),
+		validation.Field(&u.Password, validation.Required),
+	)
+}
+
+func (u User) ValidateUpdate() error {
+	return validation.ValidateStruct(&u,
+		validation.Field(&u.Username, validation.Required),
+		validation.Field(&u.Email, validation.Required, is.Email),
+	)
+}
+
+func (u User) ValidateLogin() error {
+	return validation.ValidateStruct(&u,
+		validation.Field(&u.Username, validation.Required),
+		validation.Field(&u.Password, validation.Required),
+	)
+}
+
+// CONTRACT
 type UserRepository interface {
 	FindAll(ctx context.Context) ([]User, error)
 	FindById(ctx context.Context, id int) (User, error)

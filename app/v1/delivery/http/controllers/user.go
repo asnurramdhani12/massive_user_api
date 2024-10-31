@@ -68,6 +68,16 @@ func (u *UserController) Save(c *fiber.Ctx) error {
 		})
 	}
 
+	// Validate
+	if err := user.ValidateInsertOrRegister(); err != nil {
+		logger.GetLogger(c.Context()).Errorf("failed to validate user: %v", err)
+		return c.Status(http.StatusBadRequest).JSON(contract.Response{
+			StatusCode: http.StatusBadRequest,
+			Message:    err.Error(),
+			Data:       nil,
+		})
+	}
+
 	result, err := u.UserUsecase.Save(c.Context(), user)
 	if err != nil {
 		logger.GetLogger(c.Context()).Errorf("failed to save user: %v", err)
@@ -97,6 +107,16 @@ func (u *UserController) Update(c *fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(contract.Response{
 			StatusCode: http.StatusBadRequest,
 			Message:    "failed to parse user",
+			Data:       nil,
+		})
+	}
+
+	// Validate
+	if err := user.ValidateUpdate(); err != nil {
+		logger.GetLogger(c.Context()).Errorf("failed to validate user: %v", err)
+		return c.Status(http.StatusBadRequest).JSON(contract.Response{
+			StatusCode: http.StatusBadRequest,
+			Message:    err.Error(),
 			Data:       nil,
 		})
 	}
