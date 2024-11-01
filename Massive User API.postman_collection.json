@@ -1,0 +1,993 @@
+{
+	"info": {
+		"_postman_id": "4ba076f8-062b-4085-a0ca-c65f5ab9f739",
+		"name": "Massive User API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11577849"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/admin/user",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"admin",
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "All Data Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/admin/user",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:25:53 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "367",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"success get all users\",\n    \"data\": [\n        {\n            \"id\": 32,\n            \"username\": \"asnur\",\n            \"email\": \"asnurramdhani12@gmail.com\"\n        },\n        {\n            \"id\": 33,\n            \"username\": \"dani\",\n            \"email\": \"dani123@mail.com\"\n        },\n        {\n            \"id\": 34,\n            \"username\": \"dede\",\n            \"email\": \"dede@mail.com\"\n        },\n        {\n            \"id\": 35,\n            \"username\": \"asnur1\",\n            \"email\": \"asnurramdhani123@gmail.com\"\n        }\n    ],\n    \"meta_data\": {\n        \"request_id\": \"927aec1a-98c0-44f0-9079-8f2a6c3ead29\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Detail Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/admin/user/32",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"32"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Get Detail User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/admin/user/32",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user",
+										"32"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:29:38 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "192",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"success get user by id\",\n    \"data\": {\n        \"id\": 32,\n        \"username\": \"asnur\",\n        \"email\": \"asnurramdhani12@gmail.com\"\n    },\n    \"meta_data\": {\n        \"request_id\": \"b5a0fc00-bc6e-40db-a10b-1275da3f511c\"\n    }\n}"
+						},
+						{
+							"name": "Detail Users Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/admin/user/399",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user",
+										"399"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:30:15 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "126",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 404,\n    \"message\": \"record not found\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"5e6dd32d-3530-49a3-8c7f-7856bf631766\"\n    }\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/admin/user/399",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user",
+										"399"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:30:45 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "122",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 401,\n    \"message\": \"unauthorized\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"3f92a964-729c-4fd0-aaa1-b4f78d48bb8f\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Insert User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"jono\",\n    \"email\": \"jono123@gmail.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/admin/user",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"admin",
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Insert User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"jono\",\n    \"email\": \"jono123@gmail.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/admin/user",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:33:07 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "252",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"success save user\",\n    \"data\": {\n        \"id\": 36,\n        \"username\": \"jono\",\n        \"email\": \"jono123@gmail.com\",\n        \"password\": \"$2a$14$x1d5a9ZY6NdcvNarV0oCo.4.0iq6NOCD5Pq1TK2ocMHjXVC./c16S\"\n    },\n    \"meta_data\": {\n        \"request_id\": \"ba047928-2ed2-40d0-9b5c-1f2e21485330\"\n    }\n}"
+						},
+						{
+							"name": "When of one field is empty",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"jono\",\n    // \"email\": \"jono123@gmail.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/admin/user",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:33:56 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "133",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 400,\n    \"message\": \"email: cannot be blank.\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"ac4b825f-f991-411a-9b78-f993257fa3ba\"\n    }\n}"
+						},
+						{
+							"name": "Username or Email Already Exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"jono\",\n    \"email\": \"jono123@gmail.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/admin/user",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:34:37 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "130",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 409,\n    \"message\": \"record already exist\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"7b75be80-a580-45a4-b151-b2a72cdeadc2\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"dani\",\n    \"email\": \"dani@mail.com\",\n    \"password\": \"1111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/admin/user/32",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"32"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Username or Email Already Exist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"dani\",\n    \"email\": \"dani@mail.com\",\n    \"password\": \"1111\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/admin/user/32",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user",
+										"32"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:36:39 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "130",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 409,\n    \"message\": \"record already exist\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"0aeb0a6a-de22-4d46-944f-fd6f88362150\"\n    }\n}"
+						},
+						{
+							"name": "Success Update User",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"dani12\",\n    \"email\": \"dani12@mail.com\",\n    \"password\": \"1111\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/admin/user/32",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user",
+										"32"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:38:09 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "254",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"success update user\",\n    \"data\": {\n        \"id\": 32,\n        \"username\": \"dani12\",\n        \"email\": \"dani12@mail.com\",\n        \"password\": \"$2a$14$sHrY/jCWpeI5wJ/WutT/u.Tz4K9V4QpFQnYFWFPIk9/qUseTHXrzS\"\n    },\n    \"meta_data\": {\n        \"request_id\": \"650c0abd-5373-4794-9a59-047f48c14e17\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/admin/user/32",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"admin",
+								"user",
+								"32"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Delete User",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/admin/user/32",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user",
+										"32"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:39:27 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "93",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"success delete user\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"\"\n    }\n}"
+						},
+						{
+							"name": "User Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/admin/user/32",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"admin",
+										"user",
+										"32"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:39:54 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "126",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 404,\n    \"message\": \"record not found\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"00db1960-33a5-4f74-856c-773ad838b26a\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"asnur\",\n    // \"email\": \"asnurramdhani12@gmail.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/auth/register",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Username or Email Already Exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"asnur\",\n    \"email\": \"asnurramdhani12@gmail.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/auth/register",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:05:11 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "130",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 409,\n    \"message\": \"record already exist\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"832e01d4-1749-46a6-99c2-03e3849d03d6\"\n    }\n}"
+						},
+						{
+							"name": "When one of the field is empty",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"asnur\",\n    // \"email\": \"asnurramdhani12@gmail.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/auth/register",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:14:54 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 400,\n    \"message\": \"email: cannot be blank.\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"\"\n    }\n}"
+						},
+						{
+							"name": "Success Registration",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"asnur1\",\n    \"email\": \"asnurramdhani123@gmail.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/auth/register",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:16:16 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "231",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"success register user\",\n    \"data\": {\n        \"id\": 35,\n        \"username\": \"asnur1\",\n        \"email\": \"asnurramdhani123@gmail.com\",\n        \"password\": \"$2a$14$DhFPsYkJ1Dfwb/wwXBG/GuyvonUPGjnHU880WTy4HKm2kyvKCPBEq\"\n    },\n    \"meta_data\": {\n        \"request_id\": \"\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response",
+									"const responseJson = pm.response.json();",
+									"",
+									"// Extract the token from the JSON response",
+									"const token = responseJson.data.access_token; ",
+									"",
+									"// Set the token in an environment variable",
+									"pm.collectionVariables.set(\"token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"asnur\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/auth/login",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"asnur\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/auth/login",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:25:40 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "401",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"success login user\",\n    \"data\": {\n        \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiIsImV4cCI6MTczMDUxNDM0MSwiaWQiOjAsInVzZXJuYW1lIjoiYXNudXIifQ.2Ia6GMDbeYcKF-YT80TQTi-zXxElOj1cZPAkSqQh6p0\",\n        \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiIsImV4cCI6MTczMTAzMjc0MX0.MQWicdlEnKzbdA7rXLtgGcgyrcCKn1H0j7Xqs8x6gPg\"\n    },\n    \"meta_data\": {\n        \"request_id\": \"\"\n    }\n}"
+						},
+						{
+							"name": "When one of field is empty",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"asnur\"\n    // \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/auth/login",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "JSON",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 01 Nov 2024 02:26:29 GMT",
+									"type": "text"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "100",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 400,\n    \"message\": \"password: cannot be blank.\",\n    \"data\": null,\n    \"meta_data\": {\n        \"request_id\": \"\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

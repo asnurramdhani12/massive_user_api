@@ -44,6 +44,9 @@ func NewRouter(f *fiber.App, deps *Dependencies) {
 				StatusCode: http.StatusUnauthorized,
 				Message:    "unauthorized",
 				Data:       nil,
+				MetaData: contract.MetaData{
+					RequestID: c.UserContext().Value(middleware.RequestIDKey).(string),
+				},
 			})
 		},
 	}))
